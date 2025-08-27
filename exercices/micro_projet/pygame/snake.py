@@ -62,6 +62,7 @@ class Food:
             snake (Snake): The snake object.
         """
         # TODO: Initialize the position of the food with a random position.
+        self.create_new_food_item(snake) 
         pass
     def choose_position(self, snake) -> Point:
         """
@@ -78,10 +79,12 @@ class Food:
         Returns:
             Point: The position of the food.
         """
-        p: Point = Point.get_random_point(WIDTH, HEIGHT)
+        while True:
+            p: Point = Point.get_random_point(WIDTH, HEIGHT)
         # TODO: Check if the position is on the snake.
         #       If the position is on the snake, choose another position.
-        return p
+            if all(p != segment for segment in snake.body):
+                return p
     
     
     def create_new_food_item(self, snake) -> None:
@@ -95,6 +98,9 @@ class Food:
       
         """
         # TODO: Set the position of the food object to a random position that is not on the snake.
+
+    def create_new_food_item(self, snake) -> None:
+        self.position = self.choose_position(snake)
         pass
 
     def draw(self) -> None:
@@ -143,6 +149,8 @@ class Snake:
                 only these directions because the snake can't go left at the beginning, as the left part of the head will be the body.
         """
         # TODO: Initialize the position of the snake with a random position.
+
+
         head: Point = None
         # TODO: Initialize the snake with 3 segments. the segments are stored in the self.body attribute.
         #       the first segment is the head of the snake. the next one is the head of the snake - BLOCK_SIZE (10) on the x axis. and the third one is the head of the snake - 2*BLOCK_SIZE (20) on the x axis.
